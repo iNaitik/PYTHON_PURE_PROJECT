@@ -1,0 +1,39 @@
+{
+    "Contacts": [
+        {
+            "ID": 1,
+            "Name": "John Doe",
+            "Phone": "123-456-7890",
+            "Email": "john.doe@example.com",
+            "Relation": "Friend"
+        },
+        {
+            "ID": 2,
+            "Name": "Emily Johnson",
+            "Phone": "555-123-4567",
+            "Email": "emily.johnson@example.com",
+            "Relation": "Family"
+        },
+        {
+            "ID": 3,
+            "Name": "Michael Brown",
+            "Phone": "444-555-6666",
+            "Email": "michael.brown@example.com",
+            "Relation": "Friend"
+        },
+        {
+            "ID": 4,
+            "Name": "Ayuu",
+            "Phone": "348759345",
+            "Email": "Ayuu@gmail.com",
+            "Relation": "sdfkj"
+        },
+        {
+            "ID": 5,
+            "Name": "fksj",
+            "Phone": "23847635",
+            "Email": "sdkjh@kjsdh.com",
+            "Relation": "sdkjg"
+        }
+    ]
+}
