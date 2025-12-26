@@ -8,7 +8,7 @@ def initialize_file():
     if not os.path.exists(file_name):
         with open(file_name,'w',newline='') as file:
             writer = csv.writer(file)
-            writer.writerow(['Date','Amount','Category','Discription'])
+            writer.writerow(['Date','Amount','Category','Description'])
 def Add_Expense():
     while True:
         expense_date = input("Enter date (YYYY-MM-DD) or leave blank for today: ")
@@ -16,7 +16,8 @@ def Add_Expense():
             expense_date = date.today().strftime("%Y-%m-%d")
         else:
             try:
-                expense_date = datetime.strptime(expense_date,'%Y-%m-%d')
+                # Validate the date format but keep it as string
+                datetime.strptime(expense_date,'%Y-%m-%d')
             except ValueError:
                 print("Invalid date format. Please try again.")
                 continue
@@ -32,7 +33,7 @@ def Add_Expense():
         Category = input("Enter category (e.g., Food, Transport, Utilities): ")
         if not Category:
             Category = "Miscellaneous"
-        Discription = input("Enter Discription (optional): ")
+        Discription = input("Enter Description (optional): ")
 
         initialize_file()
         # Append expense to CSV file automatically creating it if it doesn't exist
@@ -47,7 +48,7 @@ def View_Expenses():
     if not os.path.exists(file_name):
         print("No expenses recorded yet.")
         return
-    choice = input("Do you Want to see Last N trancstion Enter Number or for All Transaction Enter 'A': ")
+    choice = input("Do you Want to see Last N transaction Enter Number or for All Transaction Enter 'A': ")
     if choice.isdigit(): 
         n = int(choice)
         with open(file_name,'r') as file:
@@ -63,7 +64,7 @@ def View_Expenses():
             for row in last:
                 print(
                     f"Date: {row[j]} || Amount: {row[j+1]} || "
-                    f"Category: {row[j+2]} || Discripton: {row[j+3]}"
+                    f"Category: {row[j+2]} || Description: {row[j+3]}"
                 )
 
     elif choice.upper() == 'A' :    
@@ -75,7 +76,7 @@ def View_Expenses():
                 Expense.append(row)
             j=0
             for i in range(len(Expense)):
-                print(f"Date: {Expense[i][j]} || Amount: {Expense[i][j+1]} || Category: {Expense[i][j+2]} || Discripton: {Expense[i][j+3]}")
+                print(f"Date: {Expense[i][j]} || Amount: {Expense[i][j+1]} || Category: {Expense[i][j+2]} || Description: {Expense[i][j+3]}")
     else:
         print("Invalid Choice!!")
 
@@ -86,21 +87,23 @@ def Filter_Expenses():
     opt = int(input("Choose the filter option: "))
     while True:
         if(opt == 1):
-            print("Enter Date range (FORMATE: YYYY-MM-DD)")
+            print("Enter Date range (FORMAT: YYYY-MM-DD)")
             From = input("FROM: ")
             to = input("TO: ")
             try:
                 From = datetime.strptime(From,'%Y-%m-%d').date()
                 to = datetime.strptime(to,'%Y-%m-%d').date()
             except ValueError:
-                print("Invalid Date formate!!")
+                print("Invalid Date format!!")
                 continue
             with open(file_name,'r') as file:
                 reader = csv.DictReader(file)
                 for row in reader:
-                    expense_date = datetime.strptime(row['Date'],'%Y-%m-%d').date()
+                    # Handle both date string formats (with and without time)
+                    date_str = row['Date'].split()[0]  # Get only the date part
+                    expense_date = datetime.strptime(date_str,'%Y-%m-%d').date()
                     if From <= expense_date <= to:
-                        print(f"Date: {row['Date']} || Amount: {row['Amount']} || Category: {row['Category']} || Discripton: {row['Discription']}")
+                        print(f"Date: {row['Date']} || Amount: {row['Amount']} || Category: {row['Category']} || Description: {row['Description']}")
                 break
         elif(opt == 2):
             Category = input("Enter your category: ").lower()
@@ -109,7 +112,7 @@ def Filter_Expenses():
                 reader = csv.DictReader(file)           #Never call next() on DictReader
                 for row in reader:
                     if row['Category'].lower() == Category:
-                        print(f"Date: {row['Date']} || Amount: {row['Amount']} || Category: {row['Category']} || Discripton: {row['Discription']}")
+                        print(f"Date: {row['Date']} || Amount: {row['Amount']} || Category: {row['Category']} || Description: {row['Description']}")
                         found = 1
             if found == 0:
                 print("No expenses found for this category.")
@@ -123,14 +126,14 @@ def Generate_Report():
         print("1. Total spend in range")
         print("2. Total per Category")
         print("3. Highest single Expense")
-        print("4. Average Expense in rnage")
+        print("4. Average Expense in range")
         print("5. Back to Report Menu")
         print("---------------------------------------")
 
         choice = input("Choose an option (1-5): ")
         if choice == '1':
             while True:
-                print("Enter Date range (FORMATE: YYYY-MM-DD)")
+                print("Enter Date range (FORMAT: YYYY-MM-DD)")
                 From = input("FROM: ")
                 to = input("TO: ")
                 Total =0
@@ -138,17 +141,20 @@ def Generate_Report():
                     From = datetime.strptime(From,'%Y-%m-%d').date()
                     to = datetime.strptime(to,'%Y-%m-%d').date()
                 except ValueError:
-                    print("Invalid Date formate!!")
+                    print("Invalid Date format!!")
                     continue
                 with open(file_name,'r') as file:
                     reader = csv.DictReader(file)
                     for row in reader:
-                        expense_date = datetime.strptime(row['Date'],'%Y-%m-%d').date()
+                        # Handle both date string formats (with and without time)
+                        date_str = row['Date'].split()[0]  # Get only the date part
+                        expense_date = datetime.strptime(date_str,'%Y-%m-%d').date()
                         if From <= expense_date <= to:
                             Total += float(row['Amount'])  
                 print("-----------------------------------")
                 print(f"Total Spending: ₹{Total:.2f}") 
-                print("-----------------------------------")             
+                print("-----------------------------------")
+                break
         elif choice == '2':
             x = input("Want to see Overall category wise Spending Enter 'A' or Specific Category Enter 'S': ").upper()
             if x == 'A':
@@ -196,11 +202,11 @@ def Generate_Report():
                     else:
                         continue
             print("-------------------------------------------------------")
-            print(f"Highest Expense: \n{Highest_row['Date']}\nAmount: {Highest_row['Amount']}\nCategory: {Highest_row['Category']}\nDiscription: {Highest_row['Discription']}")        
+            print(f"Highest Expense: \n{Highest_row['Date']}\nAmount: {Highest_row['Amount']}\nCategory: {Highest_row['Category']}\nDescription: {Highest_row['Description']}")        
             print("-------------------------------------------------------")
         elif choice == '4':
             while True:
-                print("Enter Date range (FORMATE: YYYY-MM-DD)")
+                print("Enter Date range (FORMAT: YYYY-MM-DD)")
                 From = input("FROM: ")
                 to = input("TO: ")
                 Total =0
@@ -209,22 +215,25 @@ def Generate_Report():
                     From = datetime.strptime(From,'%Y-%m-%d').date()
                     to = datetime.strptime(to,'%Y-%m-%d').date()
                 except ValueError:
-                    print("Invalid Date formate!!")
+                    print("Invalid Date format!!")
                     continue
                 with open(file_name,'r') as file:
                     reader = csv.DictReader(file)
                     for row in reader:
-                        expense_date = datetime.strptime(row['Date'],'%Y-%m-%d').date()
+                        # Handle both date string formats (with and without time)
+                        date_str = row['Date'].split()[0]  # Get only the date part
+                        expense_date = datetime.strptime(date_str,'%Y-%m-%d').date()
                         if From <= expense_date <= to:
                             Total += float(row['Amount'])
                             i+=1
                 try:
                     AVERAGE = Total/i
+                    print("-----------------------------------")
+                    print(f"Average Spending: ₹{AVERAGE:.2f}") 
+                    print("-----------------------------------")
                 except ZeroDivisionError:
                     print("No expenses in range")  
-                print("-----------------------------------")
-                print(f"Average Spending: ₹{AVERAGE:.2f}") 
-                print("-----------------------------------")   
+                break
         elif choice == '5':
             print("Exiting Report Menu!")
             break
