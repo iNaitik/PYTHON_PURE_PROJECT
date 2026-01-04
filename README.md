@@ -1,24 +1,20 @@
-🧱 Projects Included
+🧱 Python CLI Projects Repository
 
+A collection of Python command-line projects built to strengthen fundamentals, data handling, and system design.
+The focus is on logic, correctness, and clean structure, not UI or frameworks.
+
+📂 Projects Included
 1️⃣ Contact Book (CLI)
 
-A simple contact management system built using Python dictionaries and JSON file handling.
+A basic contact management system using Python dictionaries and JSON storage.
 
-🔹 Features
+Features
 
-Add new contacts
+Add, view, search, edit, delete contacts
 
-View all contacts
+Persistent storage using JSON
 
-Search contacts by name
-
-Edit existing contacts
-
-Delete contacts
-
-Data persistence using .json file
-
-🔹 Concepts Used
+Concepts
 
 Dictionaries & lists
 
@@ -28,89 +24,51 @@ Input validation
 
 File handling (JSON)
 
-Modular code design
-
-🔹 Purpose
-
-To build strong fundamentals in Python data structures and file I/O.
-
 2️⃣ Expense Tracker (CLI → CSV)
 
-A command-line expense tracking application that records daily expenses and generates reports.
+A command-line application to track expenses and generate analytical reports.
 
-🔹 Features
+Features
 
-Add expenses (date, amount, category, description)
+Add and view expenses
 
-View all expenses or last N transactions
-
-Filter expenses by date range
-
-Filter expenses by category
+Filter by date range or category
 
 Generate reports:
 
-Total spending in a date range
+Total spending
 
 Category-wise spending
 
-Highest single expense
+Highest expense
 
-Average spending in a date range
+Average spending
 
-Data persistence using .csv file
+CSV-based persistence
 
-🔹 Concepts Used
+Concepts
 
-Lists of dictionaries
+CSV handling
 
-CSV file handling
+Date & time (datetime)
 
-Date and time handling (datetime)
-
-Aggregation logic
+Aggregation & filtering logic
 
 Error handling
 
-🔹 Purpose
+3️⃣ Library Management System (CLI, OOP-Based)
 
-To practice real-world data handling, analytics logic, and structured program flow.
+A rule-based library system designed using proper object-oriented principles.
 
-3️⃣ Library Management System (CLI, OOP-Based) v1
+Features
 
-A rule-based library management system designed using proper object-oriented programming principles.
+Add books and members
 
-🔹 Features
+Issue and return books with constraints
 
-Add books to the library
+View books and members with current status
 
-Add members
-
-Issue books with constraints:
-
-Book must exist
-
-Member must exist
-
-Book must not already be issued
-
-Member must not exceed issue limit
-
-Return books with validation
-
-View all books and their status
-
-View all members and their issued books
-
-🔹 Rules Enforced
-
-A book can only be issued to one member at a time
-
-A member has a maximum issue limit
-
-Only the member who issued a book can return it
-
-🔹 Concepts Used
+Concepts
 
 Object-Oriented Programming (OOP)
 
@@ -118,17 +76,35 @@ Classes & objects
 
 Encapsulation
 
-Composition (Library HAS Books & Members)
+Composition
 
 State management
 
-Dictionary-based object storage
+4️⃣ Student Result Analyzer (CLI → CSV Analysis)
 
-Clean separation of responsibilities
+A data analysis tool that processes student exam data from a CSV file.
 
-🔹 Purpose
+Features
 
-To build a realistic system that enforces business rules and manages shared state correctly.
+Subject-wise averages
+
+Student-wise total and percentage
+
+Failed students list
+
+Rank list (sequential)
+
+Topper(s) with tie handling
+
+Concepts
+
+CSV parsing
+
+Data aggregation
+
+Sorting & ranking
+
+Conditional logic
 
 🛠️ Tech Stack
 
@@ -136,33 +112,29 @@ Language: Python 3
 
 Interface: Command Line Interface (CLI)
 
-Storage: JSON / CSV (file-based persistence)
-
-(File names may vary based on your setup.)
+Storage: JSON / CSV
 
 🎯 Learning Objective
 
-This repository is focused on:
+To build a strong foundation in:
 
-Writing correct, maintainable Python code
+Python data structures
 
-Understanding data structures and object references
+File-based data handling
 
-Designing rule-based systems
+Rule-based system design
 
-Avoiding over-dependence on UI or frameworks
-
-Building a strong foundation before advanced topics
+Clean, maintainable logic
 
 🚀 Future Improvements
 
-Add persistent storage (JSON) for Library Management System
+Persistent storage for LMS
 
-Improve input validation
+Improved validation
 
-Add unit tests
+Unit tests
 
-Convert selected projects into APIs or GUI-based apps
+API or GUI versions of selected projects
 
 👤 Author
 
@@ -171,5 +143,5 @@ Engineering Student | Python Learner
 
 ✅ Final Note
 
-These projects are intentionally CLI-based to prioritize logic and correctness over appearance.
-They represent a step-by-step progression from fundamentals to structured system design.
+These projects intentionally avoid UI to prioritize logic and correctness.
+They reflect a structured progression from fundamentals to practical system and data analysis design.
