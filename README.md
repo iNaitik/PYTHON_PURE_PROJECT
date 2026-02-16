@@ -132,9 +132,6 @@ Persistent storage for LMS
 
 Improved validation
 
-Unit tests
-
-API or GUI versions of selected projects
 
 👤 Author
 
